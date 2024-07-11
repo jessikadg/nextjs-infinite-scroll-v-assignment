@@ -1,20 +1,19 @@
 "use client";
-import { PexelResponse, Photo } from "@/types/types";
-import styles from "../app/page.module.css";
-import ImageCard from "@/components/ImageCard";
-import styled from "styled-components";
-import { useCallback, useEffect, useRef, useState } from "react";
-import getImagesList from "@/api/getImagesList";
 
-const ImagesContainer = styled.section`
-  display: flex;
-  flex-wrap: wrap;
-  gap: 36px;
-  margin-top: 3rem;
-  width: 100%;
-  max-width: 1200px;
-  justify-content: center;
-`;
+import { ImageCardProps, PexelResponse, Photo } from "@/types/types";
+import styles from "../app/page.module.css";
+import { useEffect, useRef, useState } from "react";
+import getImagesList from "@/api/getImagesList";
+import { ImagesContainer } from "./styled/AtomicComponents";
+import ImageCard from "@/components/ImageCard";
+import dynamic from "next/dynamic";
+
+const DynamicImageCard = dynamic<ImageCardProps>(
+  () => import("@/components/ImageCard"),
+  {
+    ssr: false,
+  }
+);
 
 const HomeLayout: React.FC<{ imagesList?: PexelResponse }> = ({
   imagesList,
@@ -31,18 +30,12 @@ const HomeLayout: React.FC<{ imagesList?: PexelResponse }> = ({
     const favouriteImagesFromStorage =
       window.localStorage.getItem("FAVOURITE_IMAGES");
 
-    console.log("from storage", favouriteImagesFromStorage);
-
     if (favouriteImagesFromStorage !== null) {
       const parsedFavouriteImages = JSON.parse(
         favouriteImagesFromStorage
       ) as number[];
 
-      console.log({ parsedFavouriteImages });
-
       setFavouriteImages(parsedFavouriteImages);
-
-      console.log({ favouriteImages });
     } else {
       setFavouriteImages([]);
     }
@@ -106,8 +99,6 @@ const HomeLayout: React.FC<{ imagesList?: PexelResponse }> = ({
     }
   };
 
-  console.log("favourite from state", favouriteImages);
-
   return (
     // to do: remove initial css
     <main className={styles.main}>
@@ -115,13 +106,14 @@ const HomeLayout: React.FC<{ imagesList?: PexelResponse }> = ({
 
       <ImagesContainer>
         {displayedImages.map((image: Photo) => (
-          <ImageCard
+          <DynamicImageCard
             key={image.id}
             id={image.id}
             src={image.src}
             alt={image.alt}
             width={image.width}
             height={image.height}
+            photographer={image.photographer}
             favouriteImages={favouriteImages}
             handleFavouriteImage={(id) => handleFavouriteImage(id)}
           />

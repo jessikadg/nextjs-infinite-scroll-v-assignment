@@ -29,3 +29,14 @@ export interface PhotoSrc {
   small: string;
   tiny: string;
 }
+
+export interface ImageCardProps {
+  src: PhotoSrc;
+  alt: string;
+  width: number;
+  height: number;
+  id: number;
+  photographer: string;
+  handleFavouriteImage: (id: number) => void;
+  favouriteImages: number[] | null;
+}
