@@ -2,7 +2,6 @@ import { PexelResponse } from "@/types/types";
 
 const getImagesList = async (page: number): Promise<PexelResponse> => {
   try {
-    console.log("next page fetched!");
     const response = await fetch(
       `https://api.pexels.com/v1/curated?page=${page}&per_page=15`,
       {
