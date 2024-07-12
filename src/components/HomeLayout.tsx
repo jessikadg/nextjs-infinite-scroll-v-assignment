@@ -2,7 +2,7 @@
 
 import { ImageCardProps, PexelResponse, Photo } from "@/types/types";
 import styles from "../app/page.module.css";
-import { useEffect, useRef, useState } from "react";
+import { useRef } from "react";
 import { ImagesContainer } from "./styled/AtomicComponents";
 import dynamic from "next/dynamic";
 import useInfiniteScroll from "@/hooks/useInfiniteScroll";
