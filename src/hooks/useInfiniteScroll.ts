@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useState } from "react";
 import getImagesList from "@/api/getImagesList";
 import { PexelResponse, Photo } from "@/types/types";
 

@@ -1,4 +1,4 @@
-import { ImageCardProps, PhotoSrc } from "@/types/types";
+import { ImageCardProps } from "@/types/types";
 import Image from "next/image";
 
 import {
@@ -9,6 +9,8 @@ import {
   SubHeader,
   Header,
 } from "./styled/AtomicComponents";
+import { TrimUrl } from "@/utils/trimUrl";
+import { imageLoader } from "@/utils/imageLoader";
 
 export default function ImageCard({
   src,
@@ -24,14 +26,14 @@ export default function ImageCard({
   return (
     <Card style={{ width: "300px", height: "200px" }}>
       <Image
+        loader={imageLoader}
         priority={true}
-        src={src.large}
+        src={TrimUrl(src.large)}
         alt={alt}
         width={300}
         height={200}
         style={{ objectFit: "cover" }}
-        sizes={`${src.small} 400w, ${src.medium} 600w, ${src.large} 800w, ${src.large2x} 1200w`}
-        quality={90}
+        quality={80}
       />
       <HoverOverlay>
         {/* Photos from Pexel didn't have a title from API, so I used the photographer's name and the alt attribute */}

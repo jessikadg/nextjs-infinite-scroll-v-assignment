@@ -6,9 +6,11 @@ const getImagesList = async (page: number): Promise<PexelResponse> => {
       `https://api.pexels.com/v1/curated?page=${page}&per_page=15`,
       {
         headers: {
-          Authorization:
-            // TO DO: Put this string on env local
-            "L979JiRTkHzmfrBQkqzMUQG98K2l9ek8M0e7KWvwX65qK0WnRGZXdx9J",
+          Authorization: process.env.NEXT_PUBLIC_PEXELS_API_KEY || "",
+        },
+        next: {
+          // the 'curated' selection from Pexels received a new image every hour, so I'm caching results, and revalidating once per hour.
+          revalidate: 3600,
         },
       }
     );
