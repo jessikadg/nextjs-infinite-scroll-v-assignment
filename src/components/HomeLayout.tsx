@@ -9,7 +9,10 @@ import useInfiniteScroll from "@/hooks/useInfiniteScroll";
 import useFavouriteImages from "@/hooks/useFavouriteImage";
 import getImagesList from "@/api/getImagesList";
 import Loading from "./Loading";
+import LoadingError from "./LoadingError";
 
+// This dynamic import prevents Next.js from loading all cards and images at the server side,
+// drastically improving performance and user experience.
 const DynamicImportCard = dynamic<ImageCardProps>(
   () => import("@/components/ImageCard"),
   {
@@ -20,9 +23,14 @@ const DynamicImportCard = dynamic<ImageCardProps>(
 const HomeLayout: React.FC = () => {
   const elementRef = useRef<HTMLParagraphElement>(null);
 
-  const { displayedImages, loading } = useInfiniteScroll(elementRef);
+  const { displayedImages, loading, loadingError } =
+    useInfiniteScroll(elementRef);
 
   const { favouriteImages, handleFavouriteImage } = useFavouriteImages();
+
+  if (loadingError) {
+    return <LoadingError errorMessage={loadingError} />;
+  }
 
   return (
     <>
@@ -49,7 +57,7 @@ const HomeLayout: React.FC = () => {
                 />
               ))}
             </ImagesContainer>
-            {/* Improve this to a loading spinner */}
+            {/* Improve this to a loading spinner or loading bar */}
             <p ref={elementRef}>Loading more...</p>
           </>
         )}

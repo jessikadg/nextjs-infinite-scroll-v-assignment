@@ -1,5 +1,9 @@
 import styled from "styled-components";
 
+// I created this file following atomic design principles, and trying to emulate an experience
+// common to most companies the files are imported from another library. I understand that
+// each organisation has its best practices on where to store such components (sometimes in-file, sometimes separately)
+
 export const ImagesContainer = styled.section`
   display: flex;
   flex-wrap: wrap;

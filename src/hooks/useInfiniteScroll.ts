@@ -1,10 +1,12 @@
 import { useEffect, useState } from "react";
 import getImagesList from "@/api/getImagesList";
-import { PexelResponse, Photo } from "@/types/types";
+import { Photo } from "@/types/types";
+import { ApiError } from "next/dist/server/api-utils";
 
-const useInfiniteScroll = (elementRef: React.RefObject<any>) => {
+const useInfiniteScroll = (elementRef: React.RefObject<HTMLElement>) => {
   const [loading, setLoading] = useState<boolean>(true);
-  const [page, setPage] = useState(1); // Declare and initialize the 'page' state variable
+  const [loadingError, setLoadingError] = useState<string | null>(null);
+  const [page, setPage] = useState(1);
   const [displayedImages, setDisplayedImages] = useState<Photo[] | undefined>(
     undefined
   );
@@ -12,10 +14,14 @@ const useInfiniteScroll = (elementRef: React.RefObject<any>) => {
   //fetch first page:
   useEffect(() => {
     const fetchInitialImages = async () => {
-      await getImagesList(1).then((res) => {
-        setDisplayedImages(res.photos);
-        setLoading(false);
-      });
+      try {
+        const response = await getImagesList(1);
+        setDisplayedImages(response.photos);
+      } catch (error: unknown | any) {
+        setLoadingError((error as ApiError).message);
+      }
+
+      setLoading(false);
     };
 
     fetchInitialImages();
@@ -47,7 +53,7 @@ const useInfiniteScroll = (elementRef: React.RefObject<any>) => {
     };
   }, [displayedImages, page]);
 
-  return { displayedImages, loading };
+  return { displayedImages, loading, loadingError };
 };
 
 export default useInfiniteScroll;

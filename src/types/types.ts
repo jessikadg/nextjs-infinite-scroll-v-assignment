@@ -1,3 +1,6 @@
+// This file was created to keep all types organised in the same place. I understand that in bigger projects,
+// or in real life scenarios, different companies follow different practices.
+
 export interface PexelResponse {
   next_page: string;
   page: number;
