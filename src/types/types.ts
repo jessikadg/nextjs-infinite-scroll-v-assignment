@@ -40,3 +40,7 @@ export interface ImageCardProps {
   handleFavouriteImage: (id: number) => void;
   favouriteImages: number[] | null;
 }
+
+export interface LoadingProps {
+  text: string;
+}

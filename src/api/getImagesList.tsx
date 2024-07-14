@@ -1,3 +1,5 @@
+"use server";
+
 import { PexelResponse } from "@/types/types";
 
 const getImagesList = async (page: number): Promise<PexelResponse> => {

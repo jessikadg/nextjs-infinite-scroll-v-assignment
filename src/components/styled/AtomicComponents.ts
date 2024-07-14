@@ -76,3 +76,13 @@ export const FavouriteButton = styled.button`
   -moz-transform: translateX(-50%);
   transform: translateX(-50%);
 `;
+
+export const LoadingContainer = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  width: 100vw;
+`;
+
+export const LoadingText = styled.h2``;
