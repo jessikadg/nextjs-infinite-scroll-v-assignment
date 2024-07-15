@@ -1,4 +1,5 @@
 # Infinite Scroll in Next.js [no external libraries]
+Check it out live at https://nextjs-infinite-scroll-v-assignment.vercel.app/
 <img width="1448" alt="Screenshot 2024-07-15 at 08 56 46" src="https://github.com/user-attachments/assets/9bca61e6-39a4-4631-933e-978312edc16f">
 
 ## Requirements
@@ -40,21 +41,25 @@ Lazy-loading images.
 - So on `useFavouriteImage` I created a state, which would be an array of numbers, corresponding to the image ID. On first render, it checks if there are any image IDs on local storage and updated the state. Whenever a "Favourite" button is clicked, a function is called, and updated the state. And with an `useEffect` we update the local storage every time the state changes. The hook can then be called directly inside `ImageCard.tsx`
 
 ### Performance 
-- Before the Loading states, we had a really good Performance analysis from LightHouse, 91 on Performance, and 100 on all others. After the Loading state was added, that caused a layout shift initially, which hindered our scores. But I thought it would be important to show in the code how I would handle Loading and Error states with this set up. Since the code is the focus of the assignment I decided to keep it. In a real-world scenario, we wouldn't have this layout shifts: loading states would be handled with "skeletons" for the UI (which is proven to be the best User Experience according to recent research), or at least a nicer loading bar or spinner. So the layout shift would not occur.
+- Before the Loading states, we had a really good analysis results from LightHouse: 96 on Performance, and 100 on all others. After the Loading state was added, that caused a layout shift initially, which hindered our scores. But I thought it would be important to show in the code how I would handle Loading and Error states with this set up. Since the code is the focus of the assignment I decided to keep it. In a real-world scenario, we wouldn't have this layout shifts: loading states would be handled with "skeletons" for the UI (which is proven to be the best User Experience according to recent research), or at least a nicer loading bar or spinner. So the layout shift would not occur.
 - I also made the ImageCards to be loaded only on the client side by adding a dynamic import on `HomeLayout.tsx` for them. This way, the server only needs to handle the data fetching, and the images are only loaded on the client side.
 - I noticed that Pexels had a srcSet of its own, with different sizes for images, but I went with the server side Image optimisation approach. For that, I had to trim out the pre-defined widths and heights from the URL, so that Next.js could recalculate and resize accordingly on the server side with its native Image component. That also boosted Performance pretty nicely compared to before. Alternatively we could also try to use the src set coming from Pexels and set up something manually and test performance, but then we would be completely reliable on Pexel itself offering us good sizing for its images, which wouldnt' be ideal.
 
 ### Tests
 - Creating the setup for tests took a long time, so unfortunately I couldn't add much. But I did add tests for the API call, to make sure the response was where, and if not, that errors were displayed on the Logs.
 - For other tests dealing with rendering elements, I ran into some setup issues and couldnt get it up and running on time. But I would want to test for the main functionalities like: are the images displayed when provided from the API, is the infinite scroll working properly, is the image favouriting working as expected. I would also try to find a way to automate tests for peak traffic loads, and other edge cases.
-- 
+
+
+## Deployment
+- I deployed the app using Vercel: https://nextjs-infinite-scroll-v-assignment.vercel.app/
+- I didn't set up env variables according to environment, so the API Key is exposed at the moment. Since I don't have any sensitive info on that Pexels account, I didn't mind. But in a real-case scenario, we would create a key without the NEXT_PUBLIC_ prefix for Production, one with the prefix for local development (so it's accessible to Nextjs), and a dynamic check for which environment (and which key) to use. In that case we could also sue different keys for different users and different environments etc.
 
 
 
 
-## Getting Started
+## How to run it locally:
 
-First, run the development server:
+Clone this repo locally and run the development server:
 
 ```bash
 npm run dev
@@ -65,6 +70,8 @@ pnpm dev
 # or
 bun dev
 ```
+
+Node Version: 18+
 
 Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
 
@@ -80,9 +87,3 @@ To learn more about Next.js, take a look at the following resources:
 - [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
 
 You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
