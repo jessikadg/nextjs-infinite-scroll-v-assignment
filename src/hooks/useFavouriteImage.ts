@@ -3,6 +3,7 @@ import { useEffect, useState } from "react";
 const useFavouriteImages = () => {
   const [favouriteImages, setFavouriteImages] = useState<number[] | null>(null);
 
+  // On first render check if there are any favourite images in local storage and set the state accordingly:
   useEffect(() => {
     const favouriteImagesFromStorage =
       window.localStorage.getItem("FAVOURITE_IMAGES");
@@ -18,6 +19,7 @@ const useFavouriteImages = () => {
     }
   }, []);
 
+  // Update local storage whenever favouriteImages state changes:
   useEffect(() => {
     if (favouriteImages !== null) {
       window.localStorage.setItem(
@@ -27,6 +29,7 @@ const useFavouriteImages = () => {
     }
   }, [favouriteImages]);
 
+  // Update the state based on the clicked image, which triggers the useEffect above:
   const handleFavouriteImage = (clickedImageId: number) => {
     if (favouriteImages !== null) {
       const isImageFavourite = favouriteImages.includes(clickedImageId);

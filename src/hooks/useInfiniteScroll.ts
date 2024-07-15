@@ -13,7 +13,7 @@ const useInfiniteScroll = (elementRef: React.RefObject<HTMLElement>) => {
     undefined
   );
 
-  //fetch first page:
+  //fetch first page of images on initial render:
   useEffect(() => {
     const fetchInitialImages = async () => {
       try {
@@ -29,7 +29,7 @@ const useInfiniteScroll = (elementRef: React.RefObject<HTMLElement>) => {
     fetchInitialImages();
   }, []);
 
-  // fetch more images when the user scrolls to refered element:
+  // fetch more images when the user scrolls to refered element on onView function and useEffect below:
   const onView = async (entries: IntersectionObserverEntry[]) => {
     const firstRefEntry = entries[0];
 

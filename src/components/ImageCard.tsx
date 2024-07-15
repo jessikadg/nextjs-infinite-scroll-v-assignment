@@ -11,15 +11,16 @@ import {
 } from "./styled/AtomicComponents";
 import { TrimUrl } from "@/utils/trimUrl";
 import { imageLoader } from "@/utils/imageLoader";
+import useFavouriteImages from "@/hooks/useFavouriteImage";
 
 export default function ImageCard({
   src,
   alt,
   id,
-  handleFavouriteImage,
-  favouriteImages,
   photographer,
 }: ImageCardProps) {
+  const { favouriteImages, handleFavouriteImage } = useFavouriteImages();
+
   const isImageFavourite =
     favouriteImages !== null && favouriteImages.includes(id);
 
@@ -28,7 +29,7 @@ export default function ImageCard({
       <Image
         loader={imageLoader}
         priority={true}
-        src={TrimUrl(src.large)}
+        src={TrimUrl(src.medium)}
         alt={alt}
         width={300}
         height={200}
