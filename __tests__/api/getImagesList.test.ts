@@ -1,5 +1,9 @@
-import getImagesList from "../../src/api/getImagesList"; // Adjust the path as needed
+import getImagesList from "../../src/api/getImagesList";
 import fetchMock from "jest-fetch-mock";
+
+// Improvements: Add more tests for different scenarios such as empty response, invalid API key, etc.
+// Also, add tests for the error handling logic in the getImagesList function.
+// I attempted to add more tests for rendering components, but I ran into setup issues and ran out of time.
 
 describe("getImagesList", () => {
   beforeEach(() => {
