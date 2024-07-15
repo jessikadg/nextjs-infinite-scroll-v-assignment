@@ -3,6 +3,8 @@ import getImagesList from "@/api/getImagesList";
 import { Photo } from "@/types/types";
 import { ApiError } from "next/dist/server/api-utils";
 
+// Potential Improvements: add a 'hasMoreData' state to stop the infinite scroll when there is no more data to fetch.
+
 const useInfiniteScroll = (elementRef: React.RefObject<HTMLElement>) => {
   const [loading, setLoading] = useState<boolean>(true);
   const [loadingError, setLoadingError] = useState<string | null>(null);
