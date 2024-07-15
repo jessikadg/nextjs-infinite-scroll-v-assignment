@@ -1,5 +1,5 @@
-# Infinite Scroll in Next.js [no external libraries]
-Check it out live at https://nextjs-infinite-scroll-v-assignment.vercel.app/
+# Pexel Curated Images Infinite Scroll in Next.js [no external libraries]
+<br/>
 <img width="1448" alt="Screenshot 2024-07-15 at 08 56 46" src="https://github.com/user-attachments/assets/9bca61e6-39a4-4631-933e-978312edc16f">
 
 ## Requirements
