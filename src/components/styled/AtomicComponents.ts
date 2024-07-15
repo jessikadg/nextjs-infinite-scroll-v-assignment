@@ -10,7 +10,7 @@ export const ImagesContainer = styled.section`
   gap: 36px;
   margin-top: 3rem;
   width: 100%;
-  max-width: 1200px;
+  max-width: 1500px;
   justify-content: center;
 `;
 

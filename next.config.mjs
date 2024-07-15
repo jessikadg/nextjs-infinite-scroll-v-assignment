@@ -1,4 +1,5 @@
 /** @type {import('next').NextConfig} */
+
 const nextConfig = {
   images: {
     remotePatterns: [
@@ -13,6 +14,10 @@ const nextConfig = {
   env: {
     NEXT_PUBLIC_PEXELS_API_KEY: process.env.NEXT_PUBLIC_PEXELS_API_KEY,
   },
+  compiler: {
+    styledComponents: true,
+  },
+  reactStrictMode: true,
 };
 
 export default nextConfig;
